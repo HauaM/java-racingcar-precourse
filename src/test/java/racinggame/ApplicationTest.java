@@ -1,6 +1,7 @@
 package racinggame;
 
 import model.Car;
+import model.NameCerfStatus;
 import model.UserInputCarNames;
 import nextstep.test.NSTest;
 import org.junit.jupiter.api.AfterEach;
@@ -56,23 +57,15 @@ public class ApplicationTest extends NSTest {
 
     /**
      *  경계값 테스트
-     *  입력 [a, bbb ,c ] -> 검증 true
-     *  입력 [null] -> 검증 false
-     *  입력 [aaaaaa] -> 검정 false
+     *  입력 [a, bbbbbb ] -> 검증 true
      */
     @Test
     @DisplayName("이름 잘 들어왔는지 확인")
     void 자동차이름검증기능확인(){
         UserInputCarNames userInputCarNames = new UserInputCarNames();
 
-        userInputCarNames.validationNameLength(new String[] {"a", "bbbbb", "c"});
-        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo("NORMER");
-
-        userInputCarNames.validationNameLength((new String[]{""}));
-        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo("ERROR");
-
-        userInputCarNames.validationNameLength((new String[]{"aaaaaa"}));
-        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo("ERROR");
+        userInputCarNames.validationNameLength((new String[]{"a","bbbbb"}));
+        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo(NameCerfStatus.NORMER);
     }
 
     @AfterEach
