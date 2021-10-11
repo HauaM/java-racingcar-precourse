@@ -9,8 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.as;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class ApplicationTest extends NSTest {
     private static final int MOVING_FORWARD = 4;
@@ -60,13 +59,25 @@ public class ApplicationTest extends NSTest {
      *  입력 [a, bbbbbb ] -> 검증 true
      */
     @Test
-    @DisplayName("이름 잘 들어왔는지 확인")
+    @DisplayName("모든 이름들이 규칙에 맞게 들어왔는지 확인")
     void 자동차이름검증기능확인(){
         UserInputCarNames userInputCarNames = new UserInputCarNames();
 
         userInputCarNames.validationNameLength((new String[]{"a","bbbbb"}));
         assertThat(userInputCarNames.chkStringIsErr()).isEqualTo(NameCerfStatus.NORMER);
     }
+
+    @Test
+    @DisplayName("이름 잘못 입력했을 때 예외 처리나오는지에 대한 검증")
+    void 이름_예외처리_테스트() {
+
+        UserInputCarNames userInputCarNames = new UserInputCarNames();
+
+        assertThatThrownBy(() -> {
+            userInputCarNames.validationNameLength((new String[]{"aaaaaa"}));
+        }).isInstanceOf(Exception.class)
+                .hasMessageContaining ("[ERROR]");
+    };
 
     @AfterEach
     void tearDown() {
