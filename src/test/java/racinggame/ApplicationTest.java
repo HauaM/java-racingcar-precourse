@@ -60,7 +60,7 @@ public class ApplicationTest extends NSTest {
         UserInputCarNames userInputCarNames = new UserInputCarNames();
 
         userInputCarNames.validationNameLength((new String[]{"a", "bbbbb"}));
-        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo(NameCerfStatus.NORMER);
+        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo(CerfStatus.NORMER);
     }
 
     @Test
@@ -100,6 +100,21 @@ public class ApplicationTest extends NSTest {
             }
         }
         assertThat(count).isEqualTo(4);
+    }
+
+    /**
+     *  String 0 -> null
+     *  String -1 -> null
+     *  String param -> null
+     *  String 1 -> int 1
+     */
+    @Test
+    @DisplayName("숫자를 재대로 입력했는지 확인")
+    void 숫자입력_테스트(){
+        assertThat(UserInputRepeatNumber.wrappingRepeatNumber("0")).isNull();
+        assertThat(UserInputRepeatNumber.wrappingRepeatNumber("-1")).isNull();
+        assertThat(UserInputRepeatNumber.wrappingRepeatNumber("StringType")).isNull();
+        assertThat(UserInputRepeatNumber.wrappingRepeatNumber("1")).isEqualTo(1);
     }
 
     @AfterEach
