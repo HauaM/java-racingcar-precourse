@@ -3,7 +3,7 @@ package model;
 import nextstep.utils.Console;
 import view.InputView;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class UserInputCarNames {
     private String chkString = CerfStatus.NORMER;
@@ -18,6 +18,7 @@ public class UserInputCarNames {
         try{
             String[] names = seperateName(InputView.carName());
             validationNameLength(names);
+            chkNameDuplicate(names);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -31,11 +32,10 @@ public class UserInputCarNames {
         return userInputCarNames.split(",");
     }
 
-    //사용자가 모든 값을 차례대로 검증한다.
+    //사용자가 모든 자동차이름 길이를 차례대로 검증한다.
     public void validationNameLength(String[] names) {
         ArrayList<Boolean> chkValue = new ArrayList<>();
         for(String name : names){
-            System.out.println("모재윤 테스트 name === " + name);
             chkValue.add(Car.validNameLength(name));
         }
         if(chkValue.contains(false)){
@@ -65,5 +65,16 @@ public class UserInputCarNames {
     public int userInputNameCount(){
         String[] str = this.userInputCarNames.split(",");
         return str.length;
+    }
+
+    //자동차 이름에 중복값이 있는지 확인
+    public void chkNameDuplicate(String[] args) {
+        List<String> stringList = Arrays.asList(args);
+        Set<String> verifySet = new HashSet<>(stringList);//set은 중복을 허용하지 않는다.
+
+        if(verifySet.size() != args.length){
+            this.chkString = CerfStatus.ERROR;
+            throw new IllegalArgumentException("[ERROR]자동차 이름이 중복되었습니다. 다시 입력해주세요.");
+        }
     }
 }
