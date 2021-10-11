@@ -9,14 +9,22 @@ public class StatusGoAndStop {
     //랜덤숫자에 대한 자동자차의 상태값을 반환한다.
     public StatusGoAndStop(int randomNumer) {
         if(randomNumer >= BOUNDARY_VALUE && randomNumer <= MAX_INT) {
-            this.status = StatusEnum.GO;
+            status = StatusEnum.GO;
         }
         if(randomNumer < BOUNDARY_VALUE && randomNumer >= MIN_INT){
-            this.status = StatusEnum.STOP;
+            status = StatusEnum.STOP;
         }
     }
 
-    public static String getStatus(){
-        return status;
+    //GO상태인지 확인하여 알려준다.
+    //인스턴스 내부 값을 자주 참조하면 안좋음
+    public static String isGo(){
+        String goState = " ";
+
+        if(status.equals(StatusEnum.GO)){
+            goState = "-";
+        }
+
+        return goState;
     }
 }
