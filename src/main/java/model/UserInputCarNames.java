@@ -16,9 +16,7 @@ public class UserInputCarNames {
     public UserInputCarNames() {
         String localUserInputName = "";
         try{
-            localUserInputName = InputView.CarName();
-
-            String[] names = seperateName(localUserInputName);
+            String[] names = seperateName(InputView.carName());
             validationNameLength(names);
 
         }catch (Exception e){
