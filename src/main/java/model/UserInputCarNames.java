@@ -7,23 +7,21 @@ import java.util.*;
 public class UserInputCarNames {
     private String chkString = CerfStatusEnum.NORMER;
     private String userInputCarNames;
+    private String[] carNames ;
 
     //사용자가 입력한 이름의 숫자를 담고 있다.
     public int usrInputNameCount = 0;
 
     //사용자가 입력한 값을 분리하여 각각 검증 후 값을 반환한다.
     public UserInputCarNames() {
-        String localUserInputName = "";
         try{
-            String[] names = seperateName(InputView.carName());
-            validationNameLength(names);
-            chkNameDuplicate(names);
+            this.carNames = seperateName(InputView.carName());
+            validationNameLength(this.carNames);
+            chkNameDuplicate(this.carNames);
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
-
-        this.userInputCarNames = localUserInputName;
     }
 
     //검증을 위해 사용자가 입력한값을 String[]배열 형태로 반환한다.
@@ -75,5 +73,9 @@ public class UserInputCarNames {
             this.chkString = CerfStatusEnum.ERROR;
             throw new IllegalArgumentException("[ERROR]자동차 이름이 중복되었습니다. 다시 입력해주세요.");
         }
+    }
+
+    public String[] getCarNames(){
+        return this.carNames;
     }
 }
