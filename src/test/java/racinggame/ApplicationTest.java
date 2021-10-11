@@ -74,8 +74,6 @@ public class ApplicationTest extends NSTest {
                 .hasMessageContaining("[ERROR]");
     }
 
-    ;
-
     @Test
     void 최종자동차상테확인_0() {
         int[] randomValues = new int[]{1, 1, 3, 3, 3};
@@ -103,18 +101,44 @@ public class ApplicationTest extends NSTest {
     }
 
     /**
-     *  String 0 -> null
-     *  String -1 -> null
-     *  String param -> null
-     *  String 1 -> int 1
+     * String 0 -> null
+     * String -1 -> null
+     * String param -> null
+     * String 1 -> int 1
      */
     @Test
     @DisplayName("숫자를 재대로 입력했는지 확인")
-    void 숫자입력_테스트(){
+    void 숫자입력_테스트() {
         assertThat(UserInputRepeatNumber.wrappingRepeatNumber("0")).isNull();
         assertThat(UserInputRepeatNumber.wrappingRepeatNumber("-1")).isNull();
         assertThat(UserInputRepeatNumber.wrappingRepeatNumber("StringType")).isNull();
         assertThat(UserInputRepeatNumber.wrappingRepeatNumber("1")).isEqualTo(1);
+    }
+
+    /**
+     * {"test", "test1"} -> true
+     */
+    @Test
+    @DisplayName("차 이름 중복확인")
+    void 자동차이름_중복_체크() {
+        UserInputCarNames userInputCarNames = new UserInputCarNames();
+        userInputCarNames.chkNameDuplicate(new String[]{"test", "test1"});
+        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo("NORMER");
+    }
+
+    /**
+     * {"test", "test"} -> false
+     */
+
+    @Test
+    @DisplayName("자동차이름을 중복으로 입력햇을 때 나오는 오류")
+    void 자동차이름_중복_예외처리_테스트() {
+        UserInputCarNames userInputCarNames = new UserInputCarNames();
+
+        assertThatThrownBy(() -> {
+            userInputCarNames.chkNameDuplicate(new String[]{"test", "test"});
+        }).isInstanceOf(Exception.class)
+                .hasMessageContaining("중복");
     }
 
     @AfterEach
@@ -126,4 +150,5 @@ public class ApplicationTest extends NSTest {
     public void runMain() {
         Application.main(new String[]{});
     }
+
 }
