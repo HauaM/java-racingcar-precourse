@@ -1,12 +1,11 @@
 package model;
 
-import nextstep.utils.Console;
 import view.InputView;
 
 import java.util.*;
 
 public class UserInputCarNames {
-    private String chkString = CerfStatus.NORMER;
+    private String chkString = CerfStatusEnum.NORMER;
     private String userInputCarNames;
 
     //사용자가 입력한 이름의 숫자를 담고 있다.
@@ -39,7 +38,7 @@ public class UserInputCarNames {
             chkValue.add(Car.validNameLength(name));
         }
         if(chkValue.contains(false)){
-            this.chkString = CerfStatus.ERROR;
+            this.chkString = CerfStatusEnum.ERROR;
             throw new IllegalArgumentException("[ERROR] 자동차이름은 1~5글자까지만 입력가능합니다.");
         }
     }
@@ -47,10 +46,10 @@ public class UserInputCarNames {
     //사용자가 입력한이름의 값의 ERROR여부 물어본다.
     //인스턴스 변수에 직접 접근하는건 최대한 방지한다.
     public String chkStringIsErr(){
-        String result = CerfStatus.NORMER;
+        String result = CerfStatusEnum.NORMER;
 
-        if(this.chkString.equals(CerfStatus.ERROR)){
-            result = CerfStatus.ERROR;
+        if(this.chkString.equals(CerfStatusEnum.ERROR)){
+            result = CerfStatusEnum.ERROR;
         }
 
         return result;
@@ -73,7 +72,7 @@ public class UserInputCarNames {
         Set<String> verifySet = new HashSet<>(stringList);//set은 중복을 허용하지 않는다.
 
         if(verifySet.size() != args.length){
-            this.chkString = CerfStatus.ERROR;
+            this.chkString = CerfStatusEnum.ERROR;
             throw new IllegalArgumentException("[ERROR]자동차 이름이 중복되었습니다. 다시 입력해주세요.");
         }
     }

@@ -3,11 +3,11 @@ package model;
 import view.InputView;
 
 public class UserInputRepeatNumber {
-    private static String errCode = CerfStatus.NORMER;
+    private static String errCode = CerfStatusEnum.NORMER;
 
     public static int getUserInputNumber() {
         int vailedRepeatNumber = 0;
-        errCode = CerfStatus.NORMER;
+        errCode = CerfStatusEnum.NORMER;
 
         Integer paringRepeatNumber = wrappingRepeatNumber(InputView.repeatNumber());
 
@@ -31,11 +31,11 @@ public class UserInputRepeatNumber {
 
     //숫자형인지 확인하다.
     private static int inputStringToInteger(String repeatNumber) {
-        int parsingRepeatNumber = 0;
+        int parsingRepeatNumber ;
         try {
             parsingRepeatNumber = Integer.parseInt(repeatNumber);
         } catch (NumberFormatException e) {
-            errCode = CerfStatus.ERROR;
+            errCode = CerfStatusEnum.ERROR;
             throw new IllegalArgumentException("[ERROR] 숫자만 입력해 주세요.");
         }
         return parsingRepeatNumber;
@@ -43,10 +43,10 @@ public class UserInputRepeatNumber {
 
     //0보다 큰지 확인한다.
     private static int inputStringBigerThenZero(int parsingRepeatNumber) {
-        int verifiedRepeatNumber = 0;
+        int verifiedRepeatNumber;
 
         if (parsingRepeatNumber <= 0) {
-            errCode = CerfStatus.ERROR;
+            errCode = CerfStatusEnum.ERROR;
             throw new IllegalArgumentException("[ERROR] 0보다 큰 회차를 입력해주세요");
         }
 
@@ -58,10 +58,10 @@ public class UserInputRepeatNumber {
     //사용자가 입력한이름의 값의 ERROR여부 물어본다.
     //인스턴스 변수에 직접 접근하는건 최대한 방지한다.
     public static String getRepeatNumberErrCode() {
-        String result = CerfStatus.NORMER;
+        String result = CerfStatusEnum.NORMER;
 
-        if (errCode.equals(CerfStatus.ERROR)) {
-            result = CerfStatus.ERROR;
+        if (errCode.equals(CerfStatusEnum.ERROR)) {
+            result = CerfStatusEnum.ERROR;
         }
 
         return result;
