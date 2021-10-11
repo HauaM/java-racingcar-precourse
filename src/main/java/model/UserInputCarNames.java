@@ -6,8 +6,8 @@ import view.InputView;
 import java.util.ArrayList;
 
 public class UserInputCarNames {
-    private String chkString = NameCerfStatus.NORMER;
-    private String userInputCarNames = "";
+    private String chkString = CerfStatus.NORMER;
+    private String userInputCarNames;
 
     //사용자가 입력한 이름의 숫자를 담고 있다.
     public int usrInputNameCount = 0;
@@ -39,7 +39,7 @@ public class UserInputCarNames {
             chkValue.add(Car.validNameLength(name));
         }
         if(chkValue.contains(false)){
-            this.chkString = NameCerfStatus.ERROR;
+            this.chkString = CerfStatus.ERROR;
             throw new IllegalArgumentException("[ERROR] 자동차이름은 1~5글자까지만 입력가능합니다.");
         }
     }
@@ -47,12 +47,12 @@ public class UserInputCarNames {
     //사용자가 입력한이름의 값의 ERROR여부 물어본다.
     //인스턴스 변수에 직접 접근하는건 최대한 방지한다.
     public String chkStringIsErr(){
-        String result = NameCerfStatus.NORMER;
+        String result = CerfStatus.NORMER;
 
-        if(this.chkString.equals(NameCerfStatus.ERROR)){
-            result = NameCerfStatus.ERROR;
+        if(this.chkString.equals(CerfStatus.ERROR)){
+            result = CerfStatus.ERROR;
         }
-        
+
         return result;
     }
 
