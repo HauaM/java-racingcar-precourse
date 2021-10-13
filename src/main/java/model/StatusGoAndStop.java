@@ -18,11 +18,11 @@ public class StatusGoAndStop {
 
     //GO상태인지 확인하여 알려준다.
     //인스턴스 내부 값을 자주 참조하면 안좋음
-    public static String isGo(){
-        String goState = " ";
+    public static int isGo(){
+        int goState = 0;
 
         if(status.equals(StatusEnum.GO)){
-            goState = "-";
+            goState = 1;
         }
 
         return goState;
