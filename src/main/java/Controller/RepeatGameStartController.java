@@ -7,12 +7,14 @@ import view.OutputView;
 
 import java.util.*;
 
-public class repeatGameStartController {
+public class RepeatGameStartController {
 
     public static final int MIN_INT = 0;
     public static final int MAX_INT = 9;
 
-    //지정 횟수만큼 게임을 진행하고 그 결과를 GameStatusList에 저장한다.
+    /**
+     * 지정 횟수만큼 게임을 진행하고 그 결과를 GameStatusList에 저장한다.
+     */
     public static void gameStart(String[] userInputCarName, int userInputRepeatNumer) {
 
         List<String> carNames = Arrays.asList(userInputCarName);

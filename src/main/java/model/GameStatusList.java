@@ -2,15 +2,16 @@ package model;
 
 import java.util.*;
 
+/**
+ * 게임의 상태를 보관하고 있는 1급 컬랙션
+ */
 public class GameStatusList {
     public static final int INIT_NUMBER = 0;
-    //    private List<Map> gameStatusList;
     private Map<String,Integer> gameStatusList;
 
     public GameStatusList(List<Map> gamingStatus) {
         this.gameStatusList = gamingStatus.get(getGamingStatusListIndex(gamingStatus));
 
-       //gamingStatus.get(0).forEach((key, value)-> this.gameStatusList.put((String) key, (String) value));
     }
 
     public int getGamingStatusLength() {
@@ -36,7 +37,7 @@ public class GameStatusList {
         return status;
     }
 
-    //승리자 리스트를 반환한다.
+    //승자리스트를 반환한다.
     public ArrayList<String> getVictorList(){
         int biggestNumber = biggestNumber();
 

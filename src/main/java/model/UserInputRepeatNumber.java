@@ -2,6 +2,9 @@ package model;
 
 import view.InputView;
 
+/**
+ * 사용자가 입력한 반복횟수를 비지니스 로직에 맞게 Wrapping한다.
+ */
 public class UserInputRepeatNumber {
     private static String errCode = CerfStatusEnum.NORMER;
 
