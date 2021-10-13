@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mockStatic;
 
 public abstract class NSTest {
-    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(1L);
+    private static final Duration TEST_TIMEOUT = Duration.ofSeconds(2L);
 
     private PrintStream standardOut;
     private OutputStream captor;
@@ -87,4 +87,15 @@ public abstract class NSTest {
         System.setOut(standardOut);
         System.out.println(output());
     }
+
+
+    /**
+     * 사용자의 입력을 기다리는 상황에서 테스트 종료
+     * @param args
+     */
+//    protected void running(final String... args) {
+//        assertThatExceptionOfType(NoSuchElementException.class).isThrownBy(
+//                () -> subject(args)
+//        );
+//    }
 }
