@@ -4,7 +4,13 @@ import view.InputView;
 
 import java.util.*;
 
+/**
+ * 사용자가 입력한 자동차이름을 비지니스로직에 맞게 Wrapping한다.
+ */
 public class UserInputCarNames {
+    private static final int NAME_MIN_SIZE = 1;
+    private static final int NAME_MAX_SIZE = 5;
+
     private String chkString = CerfStatusEnum.NORMER;
     private String userInputCarNames;
     private String[] carNames;
@@ -34,7 +40,7 @@ public class UserInputCarNames {
 
         ArrayList<Boolean> chkValue = new ArrayList<>();
         for (String name : names) {
-            chkValue.add(Car.validNameLength(name));
+            chkValue.add(validNameLength(name));
         }
         if (chkValue.contains(false)) {
             this.chkString = CerfStatusEnum.ERROR;
@@ -60,7 +66,7 @@ public class UserInputCarNames {
         return str.length;
     }
 
-    //자동차 이름에 중복값이 있는지 확인
+    //자동차이름(Key)에 중복값이 있는지 확인
     public void chkNameDuplicate(String[] args) {
         List<String> stringList = Arrays.asList(args);
         Set<String> verifySet = new HashSet<>(stringList);//set은 중복을 허용하지 않는다.
@@ -69,6 +75,15 @@ public class UserInputCarNames {
             this.chkString = CerfStatusEnum.ERROR;
             throw new IllegalArgumentException("[ERROR]자동차 이름이 중복되었습니다. 다시 입력해주세요.");
         }
+    }
+
+    //자동차 이름이 5글자 이상인지 확인한다.
+    public static boolean validNameLength(String carName) {
+
+        if(NAME_MIN_SIZE > carName.trim().length() || NAME_MAX_SIZE < carName.trim().length()){
+            return false;
+        }
+        return true;
     }
 
     public String[] getCarNames() {
