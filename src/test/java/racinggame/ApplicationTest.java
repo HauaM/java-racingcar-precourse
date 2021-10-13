@@ -3,6 +3,12 @@ package racinggame;
 import model.*;
 import nextstep.test.NSTest;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.mockStatic;
@@ -44,10 +50,10 @@ public class ApplicationTest extends NSTest {
     @Test
     @DisplayName("자동자 이름 5글자 확인")
     void 자동차이름5글자확인() {
-        assertThat(Car.validNameLength("123456")).isFalse();
-        assertThat(Car.validNameLength("12345")).isTrue();
-        assertThat(Car.validNameLength("")).isFalse();
-        assertThat(Car.validNameLength("1")).isTrue();
+        assertThat(UserInputCarNames.validNameLength("123456")).isFalse();
+        assertThat(UserInputCarNames.validNameLength("12345")).isTrue();
+        assertThat(UserInputCarNames.validNameLength("")).isFalse();
+        assertThat(UserInputCarNames.validNameLength("1")).isTrue();
     }
 
     /**
@@ -60,7 +66,7 @@ public class ApplicationTest extends NSTest {
         UserInputCarNames userInputCarNames = new UserInputCarNames();
 
         userInputCarNames.validationNameLength((new String[]{"a", "bbbbb"}));
-        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo(CerfStatus.NORMER);
+        assertThat(userInputCarNames.chkStringIsErr()).isEqualTo(CerfStatusEnum.NORMER);
     }
 
     @Test
@@ -80,7 +86,7 @@ public class ApplicationTest extends NSTest {
         int count = 0;
         for (int i = 0; i < randomValues.length; i++) {
             new StatusGoAndStop(randomValues[i]);
-            if (StatusGoAndStop.getStatus().equals(StatusEnum.GO)) {
+            if (StatusGoAndStop.isGo() == 1) {
                 count++;
             }
         }
@@ -93,7 +99,7 @@ public class ApplicationTest extends NSTest {
         int count = 0;
         for (int i = 0; i < randomValues.length; i++) {
             new StatusGoAndStop(randomValues[i]);
-            if (StatusGoAndStop.getStatus().equals(StatusEnum.GO)) {
+            if (StatusGoAndStop.isGo() == 1 ) {
                 count++;
             }
         }
@@ -139,6 +145,32 @@ public class ApplicationTest extends NSTest {
             userInputCarNames.chkNameDuplicate(new String[]{"test", "test"});
         }).isInstanceOf(Exception.class)
                 .hasMessageContaining("중복");
+    }
+
+    /**
+     * 검증 대상 2가지
+     *  1. 가장 큰 수를 잘 찾는지 검증
+     *  2. 가증 큰 수에 해당하는 Key값을 잘 찾는지 검증(Map<Name,Value>)
+     */
+    @Test
+    @DisplayName("승리를 위한 카운터 잘 세는지 확인")
+    void 승자는누구(){
+        Map<String, Integer> param1 = new HashMap<>();
+        param1.put("test1",1);
+        param1.put("test2",6);
+        param1.put("test3",8);
+        param1.put("test4",1);
+
+        List<Map> paramList = new ArrayList<Map>();
+        paramList.add(param1);
+
+        GameStatusList gameStatusList = new GameStatusList(paramList);
+
+        //가장 큰 수를 잘 찾는지 검증
+        assertThat(gameStatusList.biggestNumber()).isEqualTo(8);
+
+        //가장 큰 수에 Key값을 잘 찾는지 검증
+        assertThat(gameStatusList.getVictorList()).contains("test3");
     }
 
     @AfterEach
